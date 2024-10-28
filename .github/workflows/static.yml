@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Subtração</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .question {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            width: 100px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo de Subtração</h1>
+        <div class="question" id="question"></div>
+        <input type="number" id="answer" placeholder="Sua resposta">
+        <button onclick="checkAnswer()">Enviar</button>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        let num1, num2;
+
+        function generateQuestion() {
+            num1 = Math.floor(Math.random() * 20) + 1;
+            num2 = Math.floor(Math.random() * 20) + 1;
+            if (num2 > num1) [num1, num2] = [num2, num1];
+            document.getElementById("question").textContent = `${num1} - ${num2} = ?`;
+            document.getElementById("answer").value = "";
+            document.getElementById("feedback").textContent = "";
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById("answer").value);
+            const correctAnswer = num1 - num2;
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById("feedback").textContent = "Correto! Boa!";
+                document.getElementById("feedback").style.color = "green";
+            } else {
+                document.getElementById("feedback").textContent = `Errado! A resposta correta é ${correctAnswer}.`;
+                document.getElementById("feedback").style.color = "red";
+            }
+            setTimeout(generateQuestion, 2000); // Nova pergunta após 2 segundos
+        }
+
+        // Inicia o jogo com uma pergunta
+        generateQuestion();
+    </script>
+</body>
+</html>
